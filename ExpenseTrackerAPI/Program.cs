@@ -1,5 +1,7 @@
 using ExpenseTrackerAPI.Data.Base.Implementation;
 using ExpenseTrackerAPI.Data.Base.Interfaces;
+using ExpenseTrackerAPI.Data.Services.Implementation;
+using ExpenseTrackerAPI.Data.Services.Interfaces;
 using ExpenseTrackerAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,11 @@ namespace ExpenseTrackerAPI
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             builder.Services.AddScoped<IEntityBaseRepository<Expense>, EntityBaseRepository<Expense>>();
             builder.Services.AddScoped<IEntityBaseRepository<ExpenseCategory>, EntityBaseRepository<ExpenseCategory>>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IOtherServices, OtherServices>();
+            
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

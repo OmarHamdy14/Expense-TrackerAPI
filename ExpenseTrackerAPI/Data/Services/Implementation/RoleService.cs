@@ -1,6 +1,8 @@
-﻿namespace ExpenseTrackerAPI.Data.Services.Implementation
+﻿using ExpenseTrackerAPI.Data.Services.Interfaces;
+
+namespace ExpenseTrackerAPI.Data.Services.Implementation
 {
-    public class RoleService
+    public class RoleService : IRoleService
     {
     }
 }

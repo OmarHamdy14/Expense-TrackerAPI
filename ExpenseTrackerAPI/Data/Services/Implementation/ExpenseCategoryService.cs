@@ -14,23 +14,23 @@
             var ExpenseCategory = await _base.Get(e => e.Id == ExpenseCategoryId);
             return ExpenseCategory;
         }
-        public async Task<List<ExpenseCategory>?> GetAllExpensesByUserId(string userId)
+        public async Task<List<ExpenseCategory>?> GetAllExpenseCategorysByUserId(string userId)
         {
             var ExpenseCategorys = await _base.GetAll(e => e.UserId == userId);
             return ExpenseCategorys;
         }
-        public async Task CreateExpepnse(CreateExpenseCategoryDTO model)
+        public async Task CreateExpenseCategory(CreateExpenseCategoryDTO model)
         {
             var ExpenseCategory = _mapper.Map<ExpenseCategory>(model);
             await _base.Create(ExpenseCategory);
         }
-        public async Task UpdateExpepnse(int ExpenseCategoryId, UpdateExpenseCategoryDTO model)
+        public async Task UpdateExpenseCategory(int ExpenseCategoryId, UpdateExpenseCategoryDTO model)
         {
             var ExpenseCategory = await _base.Get(e => e.Id == ExpenseCategoryId);
             _mapper.Map(ExpenseCategory, model);
             await _base.Update(ExpenseCategory);
         }
-        public async Task DeleteExpepnse(int ExpenseCategoryId)
+        public async Task DeleteExpenseCategory(int ExpenseCategoryId)
         {
             var ExpenseCategory = await _base.Get(e => e.Id == ExpenseCategoryId);
             await _base.Remove(ExpenseCategory);

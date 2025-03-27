@@ -5,16 +5,12 @@ namespace ExpenseTrackerAPI.Data.Services.Implementation
     public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly AppDbContext _appDbContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         private readonly JWT _jwt;
-        public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext appDbContext,IMapper mapper, IConfiguration configuration, IOptions<JWT> jwt)
+        public AccountService(UserManager<ApplicationUser> userManager, IMapper mapper, IConfiguration configuration, IOptions<JWT> jwt)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
-            _appDbContext = appDbContext;
             _mapper = mapper;
             _configuration = configuration;
             _jwt = jwt.Value;

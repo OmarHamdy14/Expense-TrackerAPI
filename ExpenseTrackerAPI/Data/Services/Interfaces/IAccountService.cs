@@ -10,5 +10,7 @@
         Task<IdentityResult> CreateAdmin(RegistrationDTO model);
         Task<IdentityResult> UpdateUser(string userId, UpdateUserDTO model);
         Task<IdentityResult> DeleteUser(string userId);
+        Task<JwtSecurityToken> CreateJwtToken(LogInDTO model);
+        Task<AuthModel> GetToken(LogInDTO model);
     }
 }

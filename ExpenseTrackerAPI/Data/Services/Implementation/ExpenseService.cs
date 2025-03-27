@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using ExpenseTrackerAPI.Data.Base.Interfaces;
-using ExpenseTrackerAPI.Data.Services.Interfaces;
-using ExpenseTrackerAPI.Models;
-using System;
-
-namespace ExpenseTrackerAPI.Data.Services.Implementation
+﻿namespace ExpenseTrackerAPI.Data.Services.Implementation
 {
     public class ExpenseService : IExpenseService
     {

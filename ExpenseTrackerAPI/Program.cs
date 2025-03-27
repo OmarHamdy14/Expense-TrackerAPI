@@ -1,11 +1,3 @@
-using ExpenseTrackerAPI.Data.Base.Implementation;
-using ExpenseTrackerAPI.Data.Base.Interfaces;
-using ExpenseTrackerAPI.Data.Services.Implementation;
-using ExpenseTrackerAPI.Data.Services.Interfaces;
-using ExpenseTrackerAPI.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 namespace ExpenseTrackerAPI
 {
     public class Program
@@ -22,9 +14,30 @@ namespace ExpenseTrackerAPI
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<IOtherServices, OtherServices>();
-            
 
+            builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+            //builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAuthentication(op =>
+            {
+                op.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                op.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                o.RequireHttpsMetadata = true;
+                o.SaveToken = true;
+                o.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = builder.Configuration["JWT:Issuer"],
+                    ValidAudience = builder.Configuration["JWT:Audeince"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+                };
+            });
 
+            builder.Services.AddAuthorization();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -32,6 +45,7 @@ namespace ExpenseTrackerAPI
 
             var app = builder.Build();
 
+            app.UseHttpsRedirection();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -39,8 +53,7 @@ namespace ExpenseTrackerAPI
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

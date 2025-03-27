@@ -1,18 +1,13 @@
-﻿namespace ExpenseTrackerAPI.Models
+﻿namespace ExpenseTrackerAPI.Data.DTOs.ExpenseDTOs
 {
-    public class Expense
+    public class CreateExpenseDTO
     {
-        public int Id { get; set; }
         [Required]
         public double HowMuch { get; set; }
         [Required]
         public DateTime Date { get; set; }
         public string? Description { get; set; }
-        [ForeignKey("Category")]
         public int CategoryId { get; set; }
-        public ExpenseCategory Category { get; set; }
-        [ForeignKey("User")]
         public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
     }
 }

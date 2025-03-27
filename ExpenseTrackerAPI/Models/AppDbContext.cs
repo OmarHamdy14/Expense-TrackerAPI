@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-
-namespace ExpenseTrackerAPI.Models
+﻿namespace ExpenseTrackerAPI.Models
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser>
     {

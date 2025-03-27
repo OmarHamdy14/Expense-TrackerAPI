@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using ExpenseTrackerAPI.Data.Base.Interfaces;
-using ExpenseTrackerAPI.Data.Services.Interfaces;
-using ExpenseTrackerAPI.Models;
-
-namespace ExpenseTrackerAPI.Data.Services.Implementation
+﻿namespace ExpenseTrackerAPI.Data.Services.Implementation
 {
     public class ExpenseCategoryService : IExpenseCategoryService
     {
@@ -26,7 +21,7 @@ namespace ExpenseTrackerAPI.Data.Services.Implementation
         }
         public async Task CreateExpepnse(CreateExpenseCategoryDTO model)
         {
-            var ExpenseCategory = _mapper.Map<Expense>(model);
+            var ExpenseCategory = _mapper.Map<ExpenseCategory>(model);
             await _base.Create(ExpenseCategory);
         }
         public async Task UpdateExpepnse(int ExpenseCategoryId, UpdateExpenseCategoryDTO model)

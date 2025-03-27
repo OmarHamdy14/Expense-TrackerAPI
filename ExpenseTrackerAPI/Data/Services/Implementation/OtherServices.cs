@@ -1,6 +1,4 @@
-﻿using ExpenseTrackerAPI.Data.Services.Interfaces;
-
-namespace ExpenseTrackerAPI.Data.Services.Implementation
+﻿namespace ExpenseTrackerAPI.Data.Services.Implementation
 {
     public class OtherServices : IOtherServices
     {

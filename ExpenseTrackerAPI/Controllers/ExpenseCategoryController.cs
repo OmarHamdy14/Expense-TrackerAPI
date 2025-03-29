@@ -20,7 +20,7 @@ namespace ExpenseTrackerAPI.Controllers
         [HttpGet("GetCategoryById/{categoryId}")]
         public async Task<IActionResult> GetCategoryById(int categoryId)
         {
-            if (categoryId <= 0) return BadRequest(new { Message = "Invalid User Id." });
+            if (categoryId <= 0) return BadRequest(new { Message = "Invalid category Id." });
             var category = await _expenseCategoryService.GetExpenseCategoryById(categoryId);
             if (category == null) return NotFound(new { Message = "No Category found." });
             return Ok(category);
@@ -38,15 +38,15 @@ namespace ExpenseTrackerAPI.Controllers
             return Ok(categories);
         }
         [Authorize]
-        [HttpGet("GetCategoryById/{categoryId}")]
-        public async Task<IActionResult> CreateCategory(CreateExpenseCategoryDTO model)
+        [HttpPost("CreateCategory")]
+        public async Task<IActionResult> CreateCategory([FromBody]CreateExpenseCategoryDTO model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _expenseCategoryService.CreateExpenseCategory(model);
-                    return CreatedAtAction("GetCategoryById", new { userId = model.UserId }, _mapper.Map<ExpenseCategory>(model));
+                    var category = await _expenseCategoryService.CreateExpenseCategory(model); 
+                    return CreatedAtAction("GetCategoryById", new { categoryId = category.Id }, category);
                 }
                 catch(Exception ex)
                 {
@@ -54,6 +54,39 @@ namespace ExpenseTrackerAPI.Controllers
                 }
             }
             return BadRequest(ModelState);
+        }
+        [Authorize]
+        [HttpPut("UpdateCategory/{categoryId}")]
+        public async Task<IActionResult> UpdateCategory(int categoryId, [FromBody]UpdateExpenseCategoryDTO model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var category = await _expenseCategoryService.UpdateExpenseCategory(categoryId,model);
+                    return CreatedAtAction("GetCategoryById", new { categoryId = category.Id }, category);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, new { Message = "Something went wrong." });
+                }
+            }
+            return BadRequest(ModelState);
+        }
+        [Authorize]
+        [HttpDelete("DeleteExpenseCategory")]
+        public async Task<IActionResult> DeleteExpenseCategory(int categoryId)
+        {
+            if (categoryId <= 0) return BadRequest(new { Message = "Invalid Id" });
+            try
+            {
+                await _expenseCategoryService.DeleteExpenseCategory(categoryId);
+                return Ok(new { Message = "Deletion is succeeded." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Something went wrong." });
+            }
         }
     }
 }

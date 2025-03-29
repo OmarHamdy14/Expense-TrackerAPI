@@ -51,22 +51,23 @@
             var expenses = await _base.GetAll(e => e.UserId == userId && e.Date >= startDate && e.Date <= endDate);
             return expenses;
         }
-        public async Task CreateExpepnse(CreateExpenseDTO model)
+        public async Task<Expense> CreateExpepnse(CreateExpenseDTO model)
         {
             var expense = _mapper.Map<Expense>(model);
             await _base.Create(expense);
+            return expense;
         }
-        public async Task UpdateExpepnse(int expenseId, UpdateExpenseDTO model)
+        public async Task<Expense> UpdateExpepnse(int expenseId, UpdateExpenseDTO model)
         {
             var expense = await _base.Get(e => e.Id == expenseId);
             _mapper.Map(expense, model);
-            await _base.Update(expense);    
+            await _base.Update(expense);
+            return expense;
         }
         public async Task DeleteExpepnse(int expenseId)
         {
             var expense = await _base.Get(e => e.Id == expenseId);
             await _base.Remove(expense);
         }
-
     }
 }

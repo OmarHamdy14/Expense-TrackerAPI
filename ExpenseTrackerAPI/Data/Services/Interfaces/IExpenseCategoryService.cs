@@ -4,8 +4,8 @@
     {
         Task<ExpenseCategory?> GetExpenseCategoryById(int ExpenseCategoryId);
         Task<List<ExpenseCategory>?> GetAllExpenseCategorysByUserId(string userId);
-        Task CreateExpenseCategory(CreateExpenseCategoryDTO model);
-        Task UpdateExpenseCategory(int ExpenseCategoryId, UpdateExpenseCategoryDTO model);
+        Task<ExpenseCategory> CreateExpenseCategory(CreateExpenseCategoryDTO model);
+        Task<ExpenseCategory> UpdateExpenseCategory(int ExpenseCategoryId, UpdateExpenseCategoryDTO model);
         Task DeleteExpenseCategory(int ExpenseCategoryId);
     }
 }

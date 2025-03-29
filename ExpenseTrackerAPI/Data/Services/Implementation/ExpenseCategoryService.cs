@@ -19,16 +19,18 @@
             var ExpenseCategorys = await _base.GetAll(e => e.UserId == userId);
             return ExpenseCategorys;
         }
-        public async Task CreateExpenseCategory(CreateExpenseCategoryDTO model)
+        public async Task<ExpenseCategory> CreateExpenseCategory(CreateExpenseCategoryDTO model)
         {
             var ExpenseCategory = _mapper.Map<ExpenseCategory>(model);
             await _base.Create(ExpenseCategory);
+            return ExpenseCategory;
         }
-        public async Task UpdateExpenseCategory(int ExpenseCategoryId, UpdateExpenseCategoryDTO model)
+        public async Task<ExpenseCategory> UpdateExpenseCategory(int ExpenseCategoryId, UpdateExpenseCategoryDTO model)
         {
             var ExpenseCategory = await _base.Get(e => e.Id == ExpenseCategoryId);
             _mapper.Map(ExpenseCategory, model);
             await _base.Update(ExpenseCategory);
+            return ExpenseCategory;
         }
         public async Task DeleteExpenseCategory(int ExpenseCategoryId)
         {
